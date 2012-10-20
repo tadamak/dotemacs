@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: chpasswd-slc
+# key: chpasswd-slc
+# binding: direct-keybinding
+# --
+@echo off
+
+net user timadmin  $0
+net user timapp    $1
+net user timinfra  $2
+
+net user slcuser   $3
+net user slocation $4
+
+net user udx       $5
+
+pause

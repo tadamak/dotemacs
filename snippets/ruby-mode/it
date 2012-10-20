@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: it do ... end
+# key: it
+# --
+it '${string}' do
+  $0
+end

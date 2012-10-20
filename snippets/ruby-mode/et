@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: expect.to
+# key: et
+# --
+expect(${something}).to $0
