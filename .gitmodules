@@ -1,0 +1,3 @@
+[submodule "prelude-modules"]
+	path = prelude-modules
+	url = git://github.com/bbatsov/prelude-modules
