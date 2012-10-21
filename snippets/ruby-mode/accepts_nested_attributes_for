@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
 # name: accepts_nested_attributes_for
-# key: ac
+# key: acc
 # --
 accepts_nested_attributes_for :${association}
