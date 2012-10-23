@@ -1,6 +1,8 @@
 ;; Allow pasting selection outside of Emacs
 (setq x-select-enable-clipboard t)
 
+(setq kill-whole-line t)
+
 ;; turn off flyspell-mode
 (remove-hook 'message-mode-hook 'flyspell-mode)
 (remove-hook 'text-mode-hook 'flyspell-mode)
