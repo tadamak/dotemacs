@@ -7,6 +7,10 @@
 ;; Disable hilight-current-line
 (global-hl-line-mode -1)
 
+(global-linum-mode t)
+(set-face-attribute 'linum nil :height 0.8)
+(setq linum-format "%4d ")
+
 ;; more useful frame title, that show either a file or a
 ;; buffer name (if the buffer isn't visiting a file)
 (setq frame-title-format
@@ -113,6 +117,8 @@
 ;; 背景の透過
 ;; (add-to-list 'default-frame-alist '(alpha . (85 20)))
 (add-to-list 'default-frame-alist '(alpha . (92 70)))
+
+(set-cursor-color "orangered")
 
 ;;; フォントの設定
 

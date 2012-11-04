@@ -186,17 +186,6 @@
   (setq uniquify-ignore-buffers-re "*[^*]+*")
 
   ;; ------------------------------------------------------------------------
-  ;; @ fringe
-
-  ;; バッファ中の行番号表示
-  (global-linum-mode t)
-
-  ;; 行番号のフォーマット
-  ;; (set-face-attribute 'linum nil :foreground "red" :height 0.8)
-  (set-face-attribute 'linum nil :height 0.8)
-  (setq linum-format "%4d")
-
-  ;; ------------------------------------------------------------------------
   ;; @ modeline
 
   ;; ;; 行番号の表示
