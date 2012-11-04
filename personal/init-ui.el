@@ -18,62 +18,6 @@
                       (abbreviate-file-name (buffer-file-name))
                     "%b"))))
 
-;; (setq-default
-;;  mode-line-format
-;;  (list
-;;   ""
-;;   'mode-line-mule-info
-;;   'mode-line-modified
-;;   " " ;mode-line-frame-identification
-;;   "%1b" ;->'mode-line-buffer-identification
-;;   " "  'global-mode-string
-;;   "%[<"
-;;   'mode-name
-;;   ">"
-;;   'mode-line-process
-;;   'minor-mode-alist
-;;   " "
-;;   "%]"
-;;   '(which-func-mode ("" which-func-format ""))
-;;   "["
-;;   '(line-number-mode "%l:")
-;;   '(column-number-mode "%c:")
-;;   "%P"
-;;   "] "
-;;   'default-directory))
-;; ("%e"
-;;  (:eval (if (display-graphic-p)
-;;             #(" " 0 1 (help-echo "mouse-1: Select (drag to resize)
-;; mouse-2: Make current window occupy the whole frame
-;; mouse-3: Remove current window from display"))
-;;           #("-" 0 1 (help-echo "mouse-1: Select (drag to resize)
-;; mouse-2: Make current window occupy the whole frame
-;; mouse-3: Remove current window from display"))))
-;;  mode-line-mule-info
-;;  mode-line-client
-;;  mode-line-modified
-;;  mode-line-remote
-;;  mode-line-frame-identification
-;;  mode-line-buffer-identification
-;;  #("   " 0 3 (help-echo "mouse-1: Select (drag to resize)
-;; mouse-2: Make current window occupy the whole frame
-;; mouse-3: Remove current window from display"))
-;;  mode-line-position
-;;  (vc-mode vc-mode)
-;;  #("  " 0 2 (help-echo "mouse-1: Select (drag to resize)
-;; mouse-2: Make current window occupy the whole frame
-;; mouse-3: Remove current window from display"))
-;;  mode-line-modes
-;;  (which-func-mode ("" which-func-format #(" " 0 1 (help-echo "mouse-1: Select (drag to resize)
-;; mouse-2: Make current window occupy the whole frame
-;; mouse-3: Remove current window from display"))))
-;;  (global-mode-string ("" global-mode-string #(" " 0 1 (help-echo "mouse-1: Select (drag to resize)
-;; mouse-2: Make current window occupy the whole frame
-;; mouse-3: Remove current window from display"))))
-;;  (:eval (unless (display-graphic-p) #("-%-" 0 3 (help-echo "mouse-1: Select (drag to resize)
-;; mouse-2: Make current window occupy the whole frame
-;; mouse-3: Remove current window from display"))))
-;; )
 
 ;; デフォルトのフレーム設定
 ;; ディスプレイサイズによって分離する試み 途中
