@@ -2,6 +2,6 @@
 # name: it do ... end
 # key: it
 # --
-it '${string}' do
+it "${string}" do
   $0
 end
