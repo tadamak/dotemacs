@@ -60,7 +60,7 @@
 
 ;; 背景の透過
 ;; (add-to-list 'default-frame-alist '(alpha . (85 20)))
-(add-to-list 'default-frame-alist '(alpha . (92 70)))
+(add-to-list 'default-frame-alist '(alpha . (95 90)))
 
 (set-cursor-color "orangered")
 
