@@ -19,6 +19,9 @@
 (add-hook 'feature-mode-hook
           (lambda () (orgtbl-mode -1)))
 
+(when (require 'yaml-mode nil t)
+  (add-to-list 'auto-mode-alist '("\.yml$" . yaml-mode)))
+
 (define-key rinari-minor-mode-map (kbd "H-;") 'rinari-find-by-context)
 (define-key rinari-minor-mode-map (kbd "H-m") 'rinari-find-model)
 (define-key rinari-minor-mode-map (kbd "H-c") 'rinari-find-controller)
