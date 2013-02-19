@@ -3,15 +3,21 @@
 
 (setq kill-whole-line t)
 
-;; turn off flyspell-mode
-(remove-hook 'message-mode-hook 'flyspell-mode)
-(remove-hook 'text-mode-hook 'flyspell-mode)
+(setq prelude-auto-save t
+      prelude-guru nil
+      prelude-whitespace t
+      prelude-flyspell nil
+      )
+
+(add-hook 'prelude-prog-mode-hook
+          (lambda () (flycheck-mode -1)))
 
 ;; projectile
-(add-to-list 'projectile-globally-ignored-directories "bundle")
-(add-to-list 'projectile-globally-ignored-directories ".bundle")
+(add-to-list 'projectile-globally-ignored-directories "vendor")
 (add-to-list 'projectile-globally-ignored-directories "cache")
 (add-to-list 'projectile-globally-ignored-directories "tmp")
+(add-to-list 'projectile-globally-ignored-directories ".git")
+(add-to-list 'projectile-globally-ignored-directories ".hg")
 
 ;; for yasnippet
 (setq require-final-newline nil)

@@ -1,6 +1,3 @@
-[submodule "prelude-modules"]
-	path = prelude-modules
-	url = git://github.com/bbatsov/prelude-modules
 [submodule "rhtml"]
 	path = vendor/rhtml
 	url = git://github.com/eschulte/rhtml
