@@ -15,5 +15,6 @@ custom.el
 places
 .smex-items
 savefile/
+var/
 /prelude-modules.el
 .local.el
