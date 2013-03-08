@@ -55,5 +55,23 @@
   (setq yagist-encrypt-risky-config t)
   (setq yagist-authenticate-function 'yagist-oauth2-authentication)
   (define-key yagist-list-mode-map "g" nil)
-  (setq revert-buffer-function 'revert-buffer) ;; 他modeのbufferであってもyagistのrevert-bufferに取られてしまう
+  ;(setq revert-buffer-function 'revert-buffer) ;; 他modeのbufferであってもyagistのrevert-bufferに取られてしまう
+  )
+
+;; popwin
+(when (require 'popwin nil t)
+  (setq display-buffer-function 'popwin:display-buffer)
+  (push '("*helm prelude*" :height 20) popwin:special-display-config)
+  )
+
+;; direx
+(when (require 'direx nil t)
+  ;; :dedicatedにtを指定することで、direxウィンドウ内でのバッファの切り替えが
+  ;; ポップアップ前のウィンドウに移譲される
+  (push '(direx:direx-mode :position left :width 25 :dedicated t)
+        popwin:special-display-config)
+  (global-set-key (kbd "C-x C-d") 'direx:jump-to-directory-other-window)
+  (setq direx:leaf-icon "  "
+        direx:open-icon "▾ "
+        direx:closed-icon "▸ ")
   )
