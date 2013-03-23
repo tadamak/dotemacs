@@ -61,14 +61,14 @@
 ;; popwin
 (when (require 'popwin nil t)
   (setq display-buffer-function 'popwin:display-buffer)
-  (push '("*helm prelude*" :height 20) popwin:special-display-config)
+  (push '("*helm prelude*" :height 25) popwin:special-display-config)
   )
 
 ;; direx
 (when (require 'direx nil t)
   ;; :dedicatedにtを指定することで、direxウィンドウ内でのバッファの切り替えが
   ;; ポップアップ前のウィンドウに移譲される
-  (push '(direx:direx-mode :position left :width 25 :dedicated t)
+  (push '(direx:direx-mode :position left :width 28 :dedicated t)
         popwin:special-display-config)
   (global-set-key (kbd "C-x C-d") 'direx:jump-to-directory-other-window)
   (setq direx:leaf-icon "  "
