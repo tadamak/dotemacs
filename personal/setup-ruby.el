@@ -26,8 +26,8 @@
 (define-key rinari-minor-mode-map (kbd "H-m") 'rinari-find-model)
 (define-key rinari-minor-mode-map (kbd "H-c") 'rinari-find-controller)
 (define-key rinari-minor-mode-map (kbd "H-v") 'rinari-find-view)
-;(define-key rinari-minor-mode-map (kbd "H-h") 'rinari-find-helper)
-;(define-key rinari-minor-mode-map (kbd "H-l") 'rinari-find-lib)
+(define-key rinari-minor-mode-map (kbd "H-h") 'rinari-find-helper)
+(define-key rinari-minor-mode-map (kbd "H-l") 'rinari-find-lib)
 (define-key rinari-minor-mode-map (kbd "H-t") 'rinari-find-test)
 (define-key rinari-minor-mode-map (kbd "H-r") 'rinari-find-rspec)
 (define-key rinari-minor-mode-map (kbd "H-F") 'rinari-find-feature)
@@ -48,27 +48,20 @@
 ;(define-key rinari-minor-mode-map (kbd "H-x") 'rinari-find-fixture)
 (define-key rinari-minor-mode-map (kbd "H-z") 'rinari-find-rspec-fixture)
 
-(defadvice ruby-indent-line (after line-up-args activate)
-  (let (indent prev-indent arg-indent)
+(defadvice ruby-indent-line (after unindent-closing-paren activate)
+  (let ((column (current-column))
+        indent offset)
     (save-excursion
       (back-to-indentation)
-      (when (zerop (car (syntax-ppss)))
-        (setq indent (current-column))
-        (skip-chars-backward " \t\n")
-        (when (eq ?, (char-before))
-          (ruby-backward-sexp)
-          (back-to-indentation)
-          (setq prev-indent (current-column))
-          (skip-syntax-forward "w_.")
-          (skip-chars-forward " ")
-          (setq arg-indent (current-column)))))
-    (when prev-indent
-      (let ((offset (- (current-column) indent)))
-        (cond ((< indent prev-indent)
-               (indent-line-to prev-indent))
-              ((= indent prev-indent)
-               (indent-line-to arg-indent)))
-        (when (> offset 0) (forward-char offset))))))
+      (let ((state (syntax-ppss)))
+        (setq offset (- column (current-column)))
+        (when (and (eq (char-after) ?\))
+                   (not (zerop (car state))))
+          (goto-char (cadr state))
+          (setq indent (current-indentation)))))
+    (when indent
+      (indent-line-to indent)
+      (when (> offset 0) (forward-char offset)))))
 
 (defun flymake-ruby-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
@@ -96,5 +89,7 @@
              (line (flymake-ler-line (nth (1- count) line-err-info-list))))
         (message "[%s] %s" line text))
       (setq count (1- count)))))
+
+(setq rinari-tags-file-name "TAGS")
 
 (provide 'setup-ruby)
