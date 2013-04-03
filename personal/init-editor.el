@@ -75,3 +75,26 @@
         direx:open-icon "▾ "
         direx:closed-icon "▸ ")
   )
+
+;; auto-complete
+(when (require 'auto-complete nil t)
+  (require 'auto-complete-config)
+  (ac-config-default)
+  (global-auto-complete-mode t)
+  (when (require 'ac-helm nil t)
+    (define-key ac-complete-mode-map (kbd "M-/") 'ac-complete-with-helm))
+  (setq ac-auto-start 0.2
+        ac-auto-show-menu 0.8
+        ac-use-menu-map t
+        ac-use-comphist t
+        ac-stop-flymake-on-completing t
+        ac-dwim t
+        )
+  (add-to-list 'ac-modes 'rhtml-mode)
+  (add-to-list 'ac-modes 'js2-mode)
+  (add-to-list 'ac-modes 'coffee-mode)
+  (define-key ac-mode-map (kbd "M-/") 'auto-complete)
+  (define-key ac-completing-map (kbd "TAB") 'ac-complete)
+  (define-key ac-menu-map (kbd "C-n") 'ac-next)
+  (define-key ac-menu-map (kbd "C-p") 'ac-previous)
+  )

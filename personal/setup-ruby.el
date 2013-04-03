@@ -4,18 +4,29 @@
 (require 'ruby-end)
 (require 'flymake)
 
+(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Guardfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rb$'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.ru$'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.erb$'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.html$'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.hamlc$'" . haml-mode))
+(add-to-list 'auto-mode-alist '("\\.less$'" . css-mode))
+(add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
+
 (add-hook 'ruby-mode-hook
           (lambda ()
             (setq ruby-deep-indent-paren-style nil
                   ruby-block-highlight-toggle t)
             ))
 
-(add-to-list 'auto-mode-alist '("\\.erb$" . rhtml-mode))
 (add-hook 'rhtml-mode-hook
           (lambda () (rinari-launch)))
 
 (require 'feature-mode)
-(add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
 (add-hook 'feature-mode-hook
           (lambda () (orgtbl-mode -1)))
 

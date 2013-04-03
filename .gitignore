@@ -18,3 +18,4 @@ savefile/
 var/
 /prelude-modules.el
 .local.el
+ac-comphist.dat
