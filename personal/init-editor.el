@@ -76,6 +76,13 @@
         direx:closed-icon "▸ ")
   )
 
+;; open-junk-file
+(when (require 'open-junk-file nil t)
+  (setq open-junk-file-format
+        (concat (file-name-as-directory (or (getenv "DROPBOX") "~/Dropbox"))
+                "Logs/%Y/%Y-%m-%d-%H%M%S.")
+        ))
+
 ;; auto-complete
 (when (require 'auto-complete nil t)
   (require 'auto-complete-config)
