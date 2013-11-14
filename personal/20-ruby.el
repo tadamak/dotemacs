@@ -1,4 +1,6 @@
-;; ;(require 'prelude-ruby)
+(require 'prelude-programming)
+(prelude-ensure-module-deps '(ruby-tools inf-ruby yari))
+
 (require 'enh-ruby-mode)
 (require 'rinari)
 ;; (require 'rhtml-mode)
@@ -9,13 +11,17 @@
 (add-to-list 'auto-mode-alist '("Gemfile\\'" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile\\'" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist '("Guardfile\\'" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("Thorfile\\'" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("Vagrantfile\\'" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rb\\'" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.ru\\'" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.gemspec\\'" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.thor\\'" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("Thorfile\\'" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("Vagrantfile\\'" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.jbuilder\\'" . enh-ruby-mode))
+
+
+(define-key 'help-command (kbd "R") 'yari)
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
@@ -26,14 +32,24 @@
 
 (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
 
+(defun personal-ruby-mode-defaults ()
+  (inf-ruby-minor-mode +1)
+  (ruby-tools-mode +1)
+  ;; CamelCase aware editing operations
+  (subword-mode +1)
+  (setq enh-ruby-program "~/.rbenv/versions/2.0.0-p247/bin/ruby"
+        enh-ruby-bounce-deep-indent t
+        enh-ruby-hanging-brace-indent-level 2
+        )
+  )
+
 (add-hook 'enh-ruby-mode-hook
           (lambda ()
-            (setq enh-ruby-program "~/.rbenv/versions/2.0.0-p247/bin/ruby"
-                  enh-ruby-bounce-deep-indent t
-                  enh-ruby-hanging-brace-indent-level 2
-                  )
-            ;(robe-mode)
+            (personal-ruby-mode-defaults)
+            (rinari-launch)
+            ;;(robe-mode)
             ))
+
 
 ;; (defun ruby-mode-set-encoding () ())
 
