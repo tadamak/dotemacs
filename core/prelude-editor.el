@@ -104,8 +104,18 @@ Will only occur if prelude-whitespace is also enabled."
 ;; smart pairing for all
 (require 'smartparens-config)
 (setq sp-base-key-bindings 'paredit)
-(setq sp-cancel-autoskip-on-backward-movement nil)
-(smartparens-global-mode +1)
+(setq sp-autoskip-closing-pair 'always)
+(setq sp-hybrid-kill-entire-symbol nil)
+(sp-use-paredit-bindings)
+
+(show-smartparens-global-mode +1)
+
+(define-key prog-mode-map (kbd "M-(") (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "(")))
+(define-key prog-mode-map (kbd "M-[") (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "[")))
+(define-key prog-mode-map (kbd "M-\"") (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "\"")))
+
+;; disable annoying blink-matching-paren
+(setq blink-matching-paren nil)
 
 ;; diminish keeps the modeline tidy
 (require 'diminish)
@@ -172,11 +182,6 @@ The body of the advice is in BODY."
 
 (add-hook 'mouse-leave-buffer-hook 'prelude-auto-save-command)
 
-;; show-paren-mode: subtle highlighting of matching parens (global-mode)
-(require 'paren)
-(setq show-paren-style 'parenthesis)
-(show-paren-mode +1)
-
 ;; highlight the current line
 (global-hl-line-mode +1)
 
@@ -216,7 +221,8 @@ The body of the advice is in BODY."
       ido-use-filename-at-point 'guess
       ido-max-prospects 10
       ido-save-directory-list-file (expand-file-name "ido.hist" prelude-savefile-dir)
-      ido-default-file-method 'selected-window)
+      ido-default-file-method 'selected-window
+      ido-auto-merge-work-directories-length -1)
 (ido-mode +1)
 (ido-ubiquitous-mode +1)
 ;; smarter fuzzy matching for ido
@@ -283,19 +289,10 @@ The body of the advice is in BODY."
 (projectile-global-mode t)
 (diminish 'projectile-mode "Prjl")
 
-(require 'helm-misc)
-(require 'helm-projectile)
-
-(defun helm-prelude ()
-  "Preconfigured `helm'."
-  (interactive)
-  (condition-case nil
-    (if (projectile-project-root)
-        (helm-projectile)
-      ;; otherwise fallback to helm-mini
-      (helm-mini))
-    ;; fall back to helm mini if an error occurs (usually in projectile-project-root)
-    (error (helm-mini))))
+;; anzu-mode enhances isearch by showing total matches and current match position
+(require 'anzu)
+(diminish 'anzu-mode)
+(global-anzu-mode)
 
 ;; shorter aliases for ack-and-a-half commands
 (defalias 'ack 'ack-and-a-half)
