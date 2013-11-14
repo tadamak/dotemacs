@@ -33,6 +33,10 @@
 
 ;;; Code:
 
+;; Turn off mouse interface early in startup to avoid momentary display
+(dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
+  (when (fboundp mode) (funcall mode -1)))
+
 (message "Prelude is powering up... Be patient, Master %s!" (getenv "USER"))
 
 (defvar prelude-dir (file-name-directory load-file-name)

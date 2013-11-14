@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: context '' do ... end
+# key: cxt
+# --
+context '${string}' do
+  $0
+end

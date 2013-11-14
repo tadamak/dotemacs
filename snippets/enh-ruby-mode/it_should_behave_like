@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: it_should_behave_like
+# key: it_
+# --
+it_should_behave_like "${shared}"

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: expect.not_to
+# key: ent
+# --
+expect(${something}).not_to $0
