@@ -1,9 +1,9 @@
 (when (eq system-type 'darwin)
   ;; Emacs users obviously have little need for Command and Option keys,
   ;; but they do need Meta and Super
-  (setq mac-command-modifier 'meta)
-  (setq mac-right-command-modifier 'hyper)
-  (setq mac-option-modifier 'super)
+  (setq ns-command-modifier 'meta)
+  (setq ns-right-command-modifier 'hyper)
+  (setq ns-option-modifier 'super)
 
   ;; Keybinding to toggle full screen mode
   (global-set-key (quote [M-f10]) (quote ns-toggle-fullscreen))
@@ -20,4 +20,17 @@
 
   ;; Use aspell for spell checking: brew install aspell --lang=en
   (setq ispell-program-name "/usr/local/bin/aspell")
-)
+
+  ;; Link to OSX clipboard
+  (defun copy-from-osx ()
+    (shell-command-to-string "pbpaste"))
+
+  (defun paste-to-osx (text &optional push)
+    (let ((process-connection-type nil))
+      (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+        (process-send-string proc text)
+        (process-send-eof proc))))
+
+  (setq interprogram-cut-function 'paste-to-osx)
+  (setq interprogram-paste-function 'copy-from-osx)
+  )

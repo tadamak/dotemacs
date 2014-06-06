@@ -23,11 +23,19 @@
 
 (define-key 'help-command (kbd "R") 'yari)
 
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.hamlc\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.less\\'" . css-mode))
+(when (require 'web-mode)
+  (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.hamlc\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.less\\'" . css-mode))
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (setq web-mode-code-indent-offset 2
+                    web-mode-markup-indent-offset 2
+                    web-mode-css-indent-offset 2
+                    web-mode-disable-auto-indentation nil
+                    )))
+  )
 
 
 (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
@@ -37,7 +45,7 @@
   (ruby-tools-mode +1)
   ;; CamelCase aware editing operations
   (subword-mode +1)
-  (setq enh-ruby-program "~/.rbenv/versions/2.0.0-p247/bin/ruby"
+  (setq enh-ruby-program "~/.rbenv/shims/ruby"
         enh-ruby-bounce-deep-indent t
         enh-ruby-hanging-brace-indent-level 2
         )
@@ -51,7 +59,8 @@
             ))
 
 
-;; (defun ruby-mode-set-encoding () ())
+(defun ruby-mode-set-encoding () ())
+(defun enh-ruby-mode-set-encoding () ())
 
 ;; (eval-after-load 'ruby-mode
 ;;   '(progn

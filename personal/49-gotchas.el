@@ -47,6 +47,15 @@
     (setq whitespace-style '(trailing space-before-tab indentation empty space-after-tab)) ;; only show bad whitespace
     ))
 
+;; js2-mode
+(when (require 'js2-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
+  (add-hook 'js2-mode-hook
+            (lambda()
+              (setq js2-basic-offset 2)
+              )))
+
 ;; flymake
 (set-face-foreground 'flymake-errline "tomato")
 (set-face-background 'flymake-errline nil)
