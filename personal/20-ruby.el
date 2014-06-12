@@ -1,25 +1,12 @@
 (require 'prelude-programming)
+(require 'prelude-ruby)
 (prelude-ensure-module-deps '(ruby-tools inf-ruby yari))
 
-(require 'enh-ruby-mode)
 (require 'rinari)
+(require 'robe)
 ;; (require 'rhtml-mode)
 ;; (require 'ruby-end)
 ;; (require 'flymake)
-
-(add-to-list 'auto-mode-alist '("Capfile\\'" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile\\'" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("Rakefile\\'" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("Guardfile\\'" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("Thorfile\\'" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("Vagrantfile\\'" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.rake\\'" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.rb\\'" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.ru\\'" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.gemspec\\'" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.thor\\'" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.jbuilder\\'" . enh-ruby-mode))
-
 
 (define-key 'help-command (kbd "R") 'yari)
 
@@ -38,39 +25,19 @@
   )
 
 
-(add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
-
-(defun personal-ruby-mode-defaults ()
-  (inf-ruby-minor-mode +1)
-  (ruby-tools-mode +1)
-  ;; CamelCase aware editing operations
-  (subword-mode +1)
-  (setq enh-ruby-program "~/.rbenv/shims/ruby"
-        enh-ruby-bounce-deep-indent t
-        enh-ruby-hanging-brace-indent-level 2
-        )
-  )
-
-(add-hook 'enh-ruby-mode-hook
-          (lambda ()
-            (personal-ruby-mode-defaults)
-            (rinari-launch)
-            ;;(robe-mode)
-            ))
-
-
 (defun ruby-mode-set-encoding () ())
-(defun enh-ruby-mode-set-encoding () ())
 
-;; (eval-after-load 'ruby-mode
-;;   '(progn
-;;      (add-hook 'ruby-mode-hook
-;;                (lambda ()
-;;                  (rinari-launch)
-;;                  (setq ruby-deep-indent-paren-style nil
-;;                        ruby-insert-encoding-magic-comment nil
-;;                        ruby-block-highlight-toggle t)
-;;                  ))))
+(eval-after-load 'ruby-mode
+  '(progn
+     (add-hook 'ruby-mode-hook
+               (lambda ()
+                 (robe-mode)
+                 (ac-robe-setup)
+                 (rinari-launch)
+                 (setq ruby-deep-indent-paren-style nil
+                       ruby-insert-encoding-magic-comment nil
+                       ruby-block-highlight-toggle t)
+                 ))))
 
 ;; (add-hook 'rhtml-mode-hook
 ;;           (lambda () (rinari-launch)))

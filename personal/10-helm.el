@@ -1,4 +1,5 @@
 (global-set-key (kbd "M-h") 'helm-prelude)
+(global-set-key (kbd "C-q") 'helm-mini)
 (global-set-key (kbd "C-x C-c") 'helm-M-x)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x C-i") 'helm-imenu)
@@ -11,7 +12,7 @@
 ;; helm-c-yasnippet
 (require 'helm-c-yasnippet)
 (setq helm-c-yas-space-match-any-greedy t) ;[default: nil]
-(global-set-key (kbd "M-;") 'helm-c-yas-complete)
+(global-set-key (kbd "M-'") 'helm-c-yas-complete)
 
 ;; helm-ag
 (when (require 'helm-ag nil t)
@@ -19,3 +20,7 @@
         helm-ag-command-option "-U"
         helm-ag-thing-at-point 'symbol
         ))
+
+;; ido
+;(setq ido-max-window-height 20)
+;(ido-vertical-mode)

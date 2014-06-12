@@ -118,7 +118,7 @@
   (add-to-list 'ac-modes 'rhtml-mode)
   (add-to-list 'ac-modes 'js2-mode)
   (add-to-list 'ac-modes 'coffee-mode)
-  (add-to-list 'ac-modes 'enh-ruby-mode)
+  (add-to-list 'ac-modes 'ruby-mode)
   (add-to-list 'ac-modes 'web-mode)
   (define-key ac-mode-map (kbd "M-/") 'auto-complete)
   (define-key ac-completing-map (kbd "TAB") 'ac-complete)
