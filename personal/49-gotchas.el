@@ -89,10 +89,10 @@
 
 ;; project-explorer
 (when (require 'project-explorer nil t)
-  (global-set-key (kbd "C-x C-d") 'project-explorer-open)
+  (global-set-key (kbd "C-x C-d") 'project-explorer-helm)
   )
 
-;; open-junk-file
+;; Open-junk-file
 (when (require 'open-junk-file nil t)
   (setq open-junk-file-format
         (concat (file-name-as-directory (or (getenv "DROPBOX") "~/Dropbox"))
@@ -143,3 +143,15 @@
   (setq open-junk-file-format
         (concat junk-file-dir "/%Y/%Y-%m-%d-%H%M%S."))
   )
+
+;; git-gutter
+(global-git-gutter-mode +1)
+(custom-set-variables
+ '(git-gutter:modified-sign " ")
+ '(git-gutter:added-sign "+")
+ '(git-gutter:deleted-sign "-")
+ '(git-gutter:lighter " GG"))
+
+(set-face-background 'git-gutter:modified "purple")
+(set-face-foreground 'git-gutter:added "green")
+(set-face-foreground 'git-gutter:deleted "red")

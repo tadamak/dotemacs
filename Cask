@@ -8,6 +8,7 @@
 (depends-on "coffee-mode")
 (depends-on "direx")
 (depends-on "findr")
+(depends-on "git-gutter")
 (depends-on "helm-ag")
 (depends-on "helm-c-yasnippet")
 (depends-on "inf-ruby")
