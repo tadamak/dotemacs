@@ -17,13 +17,12 @@
   (add-to-list 'auto-mode-alist '("\\.less\\'" . css-mode))
   (add-hook 'web-mode-hook
             (lambda ()
+              (local-set-key (kbd "RET") 'newline-and-indent))
               (setq web-mode-code-indent-offset 2
                     web-mode-markup-indent-offset 2
                     web-mode-css-indent-offset 2
                     web-mode-disable-auto-indentation nil
                     )))
-  )
-
 
 (defun ruby-mode-set-encoding () ())
 
