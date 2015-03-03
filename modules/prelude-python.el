@@ -1,6 +1,6 @@
 ;;; prelude-python.el --- Emacs Prelude: python.el configuration.
 ;;
-;; Copyright © 2011-2013 Bozhidar Batsov
+;; Copyright © 2011-2015 Bozhidar Batsov
 ;;
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: https://github.com/bbatsov/prelude
@@ -33,6 +33,13 @@
 
 ;;; Code:
 
+(prelude-require-package 'anaconda-mode)
+
+(when (boundp 'company-backends)
+  (prelude-require-package 'company-anaconda)
+  (add-to-list 'company-backends 'company-anaconda))
+
+(require 'electric)
 (require 'prelude-programming)
 
 ;; Copy pasted from ruby-mode.el
@@ -74,23 +81,32 @@
           (when (buffer-modified-p)
             (basic-save-buffer-1)))))))
 
+(when (fboundp 'exec-path-from-shell-copy-env)
+  (exec-path-from-shell-copy-env "PYTHONPATH"))
+
 (defun prelude-python-mode-defaults ()
   "Defaults for Python programming."
   (subword-mode +1)
+  (anaconda-mode)
+  (eldoc-mode)
+  (which-function-mode -1)
   (setq-local electric-layout-rules
               '((?: . (lambda ()
-                        (if (python-info-statement-starts-block-p)
-                            'after)))))
+                        (and (zerop (first (syntax-ppss)))
+                             (python-info-statement-starts-block-p)
+                             'after)))))
   (when (fboundp #'python-imenu-create-flat-index)
     (setq-local imenu-create-index-function
                 #'python-imenu-create-flat-index))
-  (electric-layout-mode +1)
+  (add-hook 'post-self-insert-hook
+            #'electric-layout-post-self-insert-function nil 'local)
   (add-hook 'after-save-hook 'prelude-python-mode-set-encoding nil 'local))
 
 (setq prelude-python-mode-hook 'prelude-python-mode-defaults)
 
 (add-hook 'python-mode-hook (lambda ()
                               (run-hooks 'prelude-python-mode-hook)))
+
 (provide 'prelude-python)
 
 ;;; prelude-python.el ends here
