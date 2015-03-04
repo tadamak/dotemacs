@@ -72,16 +72,16 @@
   )
 
 ;; direx
-;; (when (require 'direx nil t)
-;;   ;; :dedicatedにtを指定することで、direxウィンドウ内でのバッファの切り替えが
-;;   ;; ポップアップ前のウィンドウに移譲される
-;;   (push '(direx:direx-mode :position left :width 28 :dedicated t)
-;;         popwin:special-display-config)
-;;   (global-set-key (kbd "C-x C-d") 'direx:jump-to-directory-other-window)
-;;   (setq direx:leaf-icon "  "
-;;         direx:open-icon "▾ "
-;;         direx:closed-icon "▸ ")
-;;   )
+(when (require 'direx nil t)
+  ;; :dedicatedにtを指定することで、direxウィンドウ内でのバッファの切り替えが
+  ;; ポップアップ前のウィンドウに移譲される
+  (push '(direx:direx-mode :position left :width 28 :dedicated t)
+        popwin:special-display-config)
+  (global-set-key (kbd "C-x C-d") 'direx:jump-to-directory-other-window)
+  (setq direx:leaf-icon "  "
+        direx:open-icon "▾ "
+        direx:closed-icon "▸ ")
+  )
 
 ;; project-explorer
 (when (require 'project-explorer nil t)
