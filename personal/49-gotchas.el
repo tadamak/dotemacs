@@ -56,10 +56,6 @@
               (setq js2-basic-offset 2)
               )))
 
-;; flymake
-(set-face-foreground 'flymake-errline "tomato")
-(set-face-background 'flymake-errline nil)
-
 ;; yagist
 (when (require 'yagist nil t)
   (setq yagist-encrypt-risky-config t)
