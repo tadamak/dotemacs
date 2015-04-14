@@ -14,10 +14,6 @@
 (setq exec-path (cons "~/.rbenv/shims" exec-path))
 (setenv "PATH" (concat "~/.rbenv/shims:" (getenv "PATH")))
 
-;; Cask
-(require 'cask "~/.cask/cask.el")
-(cask-initialize)
-
 ;; Smooth scrolling
 (when (require 'smooth-scrolling nil t)
   (setq smooth-scroll-margin 4))

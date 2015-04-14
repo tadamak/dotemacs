@@ -77,11 +77,19 @@
   ;; ポップアップ前のウィンドウに移譲される
   (push '(direx:direx-mode :position left :width 28 :dedicated t)
         popwin:special-display-config)
-  (global-set-key (kbd "C-x C-d") 'direx:jump-to-directory-other-window)
+  (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory-other-window)
   (setq direx:leaf-icon "  "
         direx:open-icon "▾ "
         direx:closed-icon "▸ ")
   )
+
+;; guide-key
+(when (require 'guide-key nil t)
+  (setq guide-key/guide-key-sequence '(
+    "C-x r" ;; rectongle
+    "C-c r" ;; projectile-rails
+  ))
+  (guide-key-mode 1))
 
 ;; project-explorer
 (when (require 'project-explorer nil t)
@@ -151,3 +159,28 @@
 (set-face-background 'git-gutter:modified "purple")
 (set-face-foreground 'git-gutter:added "green")
 (set-face-foreground 'git-gutter:deleted "red")
+
+;; go-mode
+(eval-after-load "go-mode"
+  '(progn
+     (require 'go-autocomplete)
+     (add-hook 'go-mode-hook
+               (lambda()
+                 (setq tab-width 4)
+                 (setq compile-command "go test -v")
+                 (go-eldoc-setup)
+                 (add-hook 'before-save-hook 'gofmt-before-save)))
+     (define-key go-mode-map (kbd "M-.") 'godef-jump)
+     (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)))
+(defvar my/helm-go-source
+  '((name . "Helm Go")
+    (candidates . (lambda ()
+                    (cons "builtin" (go-packages))))
+    (action . (("Show document" . godoc)
+               ("Import package" . my/helm-go-import-add)))))
+(defun my/helm-go-import-add (candidate)
+  (dolist (package (helm-marked-candidates))
+    (go-import-add current-prefix-arg package)))
+(defun my/helm-go ()
+  (interactive)
+  (helm :sources '(my/helm-go-source) :buffer "*helm go*"))

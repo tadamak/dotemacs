@@ -10,9 +10,9 @@
 (global-set-key (kbd "M-.") 'helm-c-etags-select)
 
 ;; helm-c-yasnippet
-(require 'helm-c-yasnippet)
-(setq helm-c-yas-space-match-any-greedy t) ;[default: nil]
-(global-set-key (kbd "M-'") 'helm-c-yas-complete)
+(when (require 'helm-c-yasnippet nil t)
+  (setq helm-c-yas-space-match-any-greedy t) ;[default: nil]
+  (global-set-key (kbd "M-'") 'helm-c-yas-complete))
 
 ;; helm-ag
 (when (require 'helm-ag nil t)
