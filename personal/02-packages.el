@@ -16,5 +16,7 @@
  project-explorer
  projectile-rails
  rhtml-mode
+ robe
  yaml-mode
+ web-mode
  ))
