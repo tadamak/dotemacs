@@ -31,11 +31,15 @@
   (interactive)
   (shell-command (format "open -a /Applications/Marked.app %s" (shell-quote-argument (buffer-file-name)))))
 
-(add-hook 'markdown-mode-hook
-  (lambda()
-    (define-key markdown-mode-map (kbd "C-i") 'markdown-cycle)
-    (hide-sublevels 2)
-    (define-key markdown-mode-map (kbd "C-c m") 'markdown-preview-file)))
+(when (require 'markdown-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.md$" . gfm-mode))
+  (add-hook 'markdown-mode-hook
+            (lambda()
+              (define-key markdown-mode-map (kbd "C-i") 'markdown-cycle)
+              (hide-sublevels 2)
+              (setq tab-width 2)
+              (define-key markdown-mode-map (kbd "C-c m") 'markdown-preview-file))
+            ))
 
 ;; coffee-mode
 (autoload 'coffee-mode "coffee-mode" "Major mode for editing CoffeeScript." t)
@@ -43,9 +47,12 @@
 (add-hook 'coffee-mode-hook
   (lambda()
     (setq coffee-tab-width 2)
+    (setq coffee-args-compile '("-c" "--bare"))
     (setq whitespace-action '(auto-cleanup)) ;; automatically clean up bad whitespace
     (setq whitespace-style '(trailing space-before-tab indentation empty space-after-tab)) ;; only show bad whitespace
-    ))
+    (define-key coffee-mode-map (kbd "C-c C-k") 'coffee-compile-file)
+    (define-key coffee-mode-map (kbd "C-j") 'coffee-newline-and-indent)))
+
 
 ;; js2-mode
 (when (require 'js2-mode nil t)
@@ -54,6 +61,7 @@
   (add-hook 'js2-mode-hook
             (lambda()
               (setq js2-basic-offset 2)
+              (define-key js2-mode-map (kbd "C-j") 'js2-line-break)
               )))
 
 ;; yagist

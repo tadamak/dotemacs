@@ -11,6 +11,7 @@
  guide-key
  helm-ag
  helm-ls-git
+ jade-mode
  markdown-mode
  open-junk-file
  popwin
