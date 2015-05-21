@@ -3,6 +3,7 @@
  auto-complete
  color-moccur
  direx
+ edit-server
  findr
  git-gutter
  go-autocomplete

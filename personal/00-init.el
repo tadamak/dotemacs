@@ -32,3 +32,6 @@
 (when (load "server")
   (unless (server-running-p) (server-start))
   (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function))
+(when (require 'edit-server nil t)
+  (setq edit-server-new-frame nil)
+  (edit-server-start))
