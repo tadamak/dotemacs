@@ -18,6 +18,7 @@
  project-explorer
  projectile-rails
  rhtml-mode
+ rinari
  robe
  yaml-mode
  web-mode
