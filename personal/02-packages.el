@@ -1,6 +1,7 @@
 (prelude-require-packages '(
  ag
- auto-complete
+;; auto-complete
+ alchemist
  color-moccur
  direx
  edit-server
@@ -13,6 +14,7 @@
  helm-ls-git
  jade-mode
  markdown-mode
+ neotree
  open-junk-file
  popwin
  project-explorer
