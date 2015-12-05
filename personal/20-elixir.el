@@ -13,3 +13,4 @@
                  (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
                  (ruby-end-mode +1)))
   )
+(when (require 'alchemist nil t))

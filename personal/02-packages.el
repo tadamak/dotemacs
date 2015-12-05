@@ -1,6 +1,5 @@
 (prelude-require-packages '(
  ag
-;; auto-complete
  alchemist
  color-moccur
  direx
@@ -22,6 +21,7 @@
  rhtml-mode
  rinari
  robe
+ smartparens
  yaml-mode
  web-mode
  ))

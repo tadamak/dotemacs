@@ -20,6 +20,16 @@
 ;; for yasnippet
 (setq require-final-newline nil)
 
+;; company-mode
+(global-set-key (kbd "C-l") 'company-complete)
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+(define-key company-search-map (kbd "C-n") 'company-select-next)
+(define-key company-search-map (kbd "C-p") 'company-select-previous)
+(define-key company-active-map (kbd "C-s") 'company-filter-candidates)
+(define-key company-active-map (kbd "TAB") 'company-complete-selection)
+;;(define-key emacs-lisp-mode-map (kbd "C-l") 'company-complete)
+
 ;; cua-mode
 (cua-mode t)
 (setq cua-enable-cua-keys nil) ; 不都合なキーバインドを無効化
@@ -104,39 +114,13 @@
   (global-set-key (kbd "C-x C-d") 'project-explorer-helm)
   )
 
-;; Open-junk-file
+;; open-junk-file
 (when (require 'open-junk-file nil t)
+  (global-set-key (kbd "C-x j") 'open-junk-file)
   (setq open-junk-file-format
         (concat (file-name-as-directory (or (getenv "DROPBOX") "~/Dropbox"))
                 "Logs/%Y/%Y-%m-%d-%H%M%S.")
         ))
-
-;; auto-complete
-(when (require 'auto-complete nil t)
-  (require 'auto-complete-config)
-  (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-  (ac-config-default)
-  (setq ac-ignore-case nil)
-  (global-auto-complete-mode t)
-  (when (require 'ac-helm nil t)
-    (define-key ac-complete-mode-map (kbd "M-/") 'ac-complete-with-helm))
-  ;; (setq ac-auto-start 0.2
-  ;;       ac-auto-show-menu 0.8
-  ;;       ac-use-menu-map t
-  ;;       ac-use-comphist t
-  ;;       ac-stop-flymake-on-completing t
-  ;;       ac-dwim t
-  ;;       )
-  (add-to-list 'ac-modes 'rhtml-mode)
-  (add-to-list 'ac-modes 'js2-mode)
-  (add-to-list 'ac-modes 'coffee-mode)
-  (add-to-list 'ac-modes 'ruby-mode)
-  (add-to-list 'ac-modes 'web-mode)
-  (define-key ac-mode-map (kbd "M-/") 'auto-complete)
-  (define-key ac-completing-map (kbd "TAB") 'ac-complete)
-  (define-key ac-menu-map (kbd "C-n") 'ac-next)
-  (define-key ac-menu-map (kbd "C-p") 'ac-previous)
-  )
 
 ;; js2-mode
 (when (require 'js2-mode nil t)
