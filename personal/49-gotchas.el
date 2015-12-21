@@ -105,7 +105,12 @@
 (when (require 'popwin nil t)
   (setq display-buffer-function 'popwin:display-buffer)
   (popwin-mode 1)
+  (push '("*Help*" :stick t :noselect t) popwin:special-display-config)
   (push '("*helm prelude*" :height 25) popwin:special-display-config)
+  ;(push '(inf-ruby-mode :stick t :height 20) popwin:special-display-config)
+  (push '(direx:direx-mode :position left :width 40 :dedicated t) popwin:special-display-config)
+  (push '("^\*go-direx:" :position left :width 0.3 :dedicated t :stick t :regexp t) popwin:special-display-config)
+  (push '(flycheck-error-list-mode) popwin:special-display-config)
   )
 
 ;; direx
@@ -161,15 +166,45 @@
 
 ;; git-gutter
 (global-git-gutter-mode +1)
+(global-set-key (kbd "C-x v u") 'git-gutter)
+(global-set-key (kbd "C-x v p") 'git-gutter:stage-hunk)
+(global-set-key (kbd "C-x v =") 'git-gutter:popup-hunk)
+(global-set-key (kbd "C-x v r") 'git-gutter:revert-hunk)
 (custom-set-variables
  '(git-gutter:modified-sign " ")
  '(git-gutter:added-sign "+")
  '(git-gutter:deleted-sign "-")
  '(git-gutter:lighter " GG"))
+(add-hook 'focus-in-hook 'git-gutter:update-all-windows)
 
 (set-face-background 'git-gutter:modified "purple")
 (set-face-foreground 'git-gutter:added "green")
 (set-face-foreground 'git-gutter:deleted "red")
+
+(with-eval-after-load 'vc '(remove-hook 'find-file-hooks 'vc-find-file-hook))
+
+(global-set-key (kbd "M-g M-g") 'magit-status)
+(defun my/magit-status-around (orig-fn &rest args)
+  (window-configuration-to-register :magit-fullscreen)
+  (apply orig-fn args)
+  (delete-other-windows))
+(defun my/magit-quit-session ()
+  (interactive)
+  (kill-buffer)
+  (jump-to-register :magit-fullscreen)
+  (git-gutter:update-all-windows))
+(defun my/git-commit-commit-after (_unused)
+  (delete-window))
+(defun my/git-commit-mode-hook ()
+  (flyspell-mode +1))
+
+(with-eval-after-load 'magit
+  (global-git-commit-mode +1)
+  (advice-add 'magit-status :around 'my/magit-status-around)
+  (define-key magit-status-mode-map (kbd "q") 'my/magit-quit-session))
+(with-eval-after-load 'git-commit
+  (add-hook 'git-commit-mode-hook 'my/git-commit-mode-hook)
+  (advice-add 'git-commit-commit :after 'my/git-commit-commit-after))
 
 ;; go-mode
 (eval-after-load "go-mode"
