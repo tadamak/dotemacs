@@ -10,6 +10,25 @@
       flycheck-mode -1
       )
 
+;; dired
+(with-eval-after-load 'dired
+  (put 'dired-find-alternate-file 'disabled nil)
+  (when (executable-find "gls")
+    (setq insert-directory-program "gls"))
+  (load-library "ls-lisp")
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+  (define-key dired-mode-map (kbd "K") 'dired-k)
+  (define-key dired-mode-map (kbd "Q") 'quick-preview-at-point)
+  (define-key dired-mode-map (kbd "C-l") 'dired-up-directory)
+  (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode))
+
+(custom-set-variables
+ '(ls-lisp-dirs-first t)
+ '(dired-dwim-target t)
+ '(dired-auto-revert-buffer t)
+ '(dired-recursive-copies 'always)
+ '(dired-recursive-deletes 'always))
+
 ;; projectile
 (add-to-list 'projectile-globally-ignored-directories "vendor")
 (add-to-list 'projectile-globally-ignored-directories "cache")
