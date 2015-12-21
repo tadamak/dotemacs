@@ -24,16 +24,23 @@
 
 (defun ruby-mode-set-encoding () ())
 
-(eval-after-load 'ruby-mode
-  '(progn
-     (add-hook 'ruby-mode-hook
-               (lambda ()
-                 (robe-mode)
-                 (ac-robe-setup)
-                 (rinari-launch)
-                 (setq ruby-deep-indent-paren-style nil
-                       ruby-insert-encoding-magic-comment nil
-                       ruby-block-highlight-toggle t)
-                 ))))
+(with-eval-after-load 'ruby-mode
+  (add-hook 'ruby-mode-hook 'my/ruby-mode-hook)
+  (define-key ruby-mode-map (kbd "C-c C-a") 'ruby-beginning-of-block)
+  (define-key ruby-mode-map (kbd "C-c C-e") 'ruby-end-of-block)
+  (define-key ruby-mode-map (kbd "C-c ?") 'robe-doc)
+  (dolist (key '("(" ")" "{" "}" "[" "]" "\"" "'"))
+    (define-key ruby-mode-map key nil)))
+
+(defun my/ruby-mode-hook ()
+  (setq flycheck-checker 'ruby-rubocop)
+  (setq ruby-deep-indent-paren-style nil
+        ruby-insert-encoding-magic-comment nil
+        ruby-block-highlight-toggle t)
+  (robe-mode +1)
+  (add-to-list 'company-backends 'company-robe)
+;;  (rinari-launch)
+;;  (ruby-end-mode +1)
+  )
 
 (provide '20-ruby)

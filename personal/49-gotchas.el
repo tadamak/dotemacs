@@ -196,19 +196,19 @@
   (interactive)
   (helm :sources '(my/helm-go-source) :buffer "*helm go*"))
 
-;; neotree
-(when (require 'neotree nil t)
-  (global-set-key [f8] 'neotree-toggle)
-  (setq projectile-switch-project-action 'neotree-projectile-action)
-  (setq neo-theme 'nerd
-        neo-smart-open t
-        neo-show-hidden-files t
-        neo-window-width 40
-        neo-cwd-line-style 'button
-        neo-auto-indent-point t)
-  (when neo-persist-show
-    (add-hook 'popwin:before-popup-hook
-              (lambda () (setq neo-persist-show nil)))
-    (add-hook 'popwin:after-popup-hook
-              (lambda () (setq neo-persist-show t)))
-    ))
+;; ;; neotree
+;; (when (require 'neotree nil t)
+;;   (global-set-key [f8] 'neotree-toggle)
+;;   (setq projectile-switch-project-action 'neotree-projectile-action)
+;;   (setq neo-theme 'nerd
+;;         neo-smart-open t
+;;         neo-show-hidden-files t
+;;         neo-window-width 40
+;;         neo-cwd-line-style 'button
+;;         neo-auto-indent-point t)
+;;   (when neo-persist-show
+;;     (add-hook 'popwin:before-popup-hook
+;;               (lambda () (setq neo-persist-show nil)))
+;;     (add-hook 'popwin:after-popup-hook
+;;               (lambda () (setq neo-persist-show t)))
+;;     ))

@@ -1,6 +1,6 @@
 (global-set-key (kbd "M-h") 'helm-projectile-find-file)
 (global-set-key (kbd "C-c f") 'helm-projectile-find-file)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x f") 'helm-find-files)
 (global-set-key (kbd "C-q") 'helm-mini)
 (global-set-key (kbd "C-x C-c") 'helm-M-x)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
