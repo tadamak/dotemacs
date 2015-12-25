@@ -43,8 +43,6 @@
 (global-set-key (kbd "C-l") 'company-complete)
 (define-key company-active-map (kbd "C-n") 'company-select-next)
 (define-key company-active-map (kbd "C-p") 'company-select-previous)
-(define-key company-search-map (kbd "C-n") 'company-select-next)
-(define-key company-search-map (kbd "C-p") 'company-select-previous)
 (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
 (define-key company-active-map (kbd "TAB") 'company-complete-selection)
 ;;(define-key emacs-lisp-mode-map (kbd "C-l") 'company-complete)
@@ -65,10 +63,9 @@
   (add-hook 'markdown-mode-hook
             (lambda()
               (define-key markdown-mode-map (kbd "C-i") 'markdown-cycle)
-              (hide-sublevels 2)
-              (setq tab-width 2)
               (define-key markdown-mode-map (kbd "C-c m") 'markdown-preview-file))
-            ))
+              (hide-sublevels 2)
+              (setq tab-width 2)))
 
 ;; coffee-mode
 (autoload 'coffee-mode "coffee-mode" "Major mode for editing CoffeeScript." t)
@@ -125,26 +122,10 @@
         direx:closed-icon "▸ ")
   )
 
-;; guide-key
-(when (require 'guide-key nil t)
-  (setq guide-key/guide-key-sequence '(
-    "C-x r" ;; rectongle
-    "C-c r" ;; projectile-rails
-  ))
-  (guide-key-mode 1))
-
 ;; project-explorer
 (when (require 'project-explorer nil t)
   (global-set-key (kbd "C-x C-d") 'project-explorer-helm)
   )
-
-;; open-junk-file
-(when (require 'open-junk-file nil t)
-  (global-set-key (kbd "C-x j") 'open-junk-file)
-  (setq open-junk-file-format
-        (concat (file-name-as-directory (or (getenv "DROPBOX") "~/Dropbox"))
-                "Logs/%Y/%Y-%m-%d-%H%M%S.")
-        ))
 
 ;; js2-mode
 (when (require 'js2-mode nil t)
@@ -231,19 +212,7 @@
   (interactive)
   (helm :sources '(my/helm-go-source) :buffer "*helm go*"))
 
-;; ;; neotree
-;; (when (require 'neotree nil t)
-;;   (global-set-key [f8] 'neotree-toggle)
-;;   (setq projectile-switch-project-action 'neotree-projectile-action)
-;;   (setq neo-theme 'nerd
-;;         neo-smart-open t
-;;         neo-show-hidden-files t
-;;         neo-window-width 40
-;;         neo-cwd-line-style 'button
-;;         neo-auto-indent-point t)
-;;   (when neo-persist-show
-;;     (add-hook 'popwin:before-popup-hook
-;;               (lambda () (setq neo-persist-show nil)))
-;;     (add-hook 'popwin:after-popup-hook
-;;               (lambda () (setq neo-persist-show t)))
-;;     ))
+;; which-key
+(which-key-mode +1)
+(which-key-setup-minibuffer)
+(setq which-key-idle-delay 0.5)
