@@ -61,7 +61,7 @@
 (when (require 'markdown-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.md$" . gfm-mode))
   (add-hook 'markdown-mode-hook
-            (lambda()
+            (lambda ()
               (define-key markdown-mode-map (kbd "C-i") 'markdown-cycle)
               (define-key markdown-mode-map (kbd "C-c m") 'markdown-preview-file))
               (hide-sublevels 2)
@@ -71,7 +71,7 @@
 (autoload 'coffee-mode "coffee-mode" "Major mode for editing CoffeeScript." t)
 (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
 (add-hook 'coffee-mode-hook
-  (lambda()
+  (lambda ()
     (setq coffee-tab-width 2)
     (setq coffee-args-compile '("-c" "--bare"))
     (setq whitespace-action '(auto-cleanup)) ;; automatically clean up bad whitespace
@@ -85,7 +85,7 @@
   (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
   (add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
   (add-hook 'js2-mode-hook
-            (lambda()
+            (lambda ()
               (setq js2-basic-offset 2)
               (define-key js2-mode-map (kbd "C-j") 'js2-line-break)
               )))

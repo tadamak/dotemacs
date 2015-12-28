@@ -2,6 +2,7 @@
  ag
  alchemist
  color-moccur
+ deft
  direx
  edit-server
  findr

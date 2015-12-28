@@ -2,12 +2,43 @@
 (defvar my/junk-files-dir (concat (file-name-as-directory (or (getenv "DROPBOX") "~/Dropbox")) "Logs"))
 (when (require 'open-junk-file nil t)
   (global-set-key (kbd "C-x j") 'open-junk-file)
-  (setq open-junk-file-format (concat my/junk-files-dir "%Y/%Y-%m-%d.md")))
+  (setq open-junk-file-format (concat my/junk-files-dir "%Y/%Y-%m-%d-%H%M%S.md")))
+
+(defun my/new-junk-file-path (&optional ext)
+  (let* ((file (format-time-string open-junk-file-format (current-time)))
+         (dir (file-name-directory file)))
+    (make-directory dir t)
+    file))
+
+;; deft
+(defun my/update-deft-cache ()
+  (interactive)
+  (let* ((file (buffer-file-name))
+         (dirname (file-name-directory file)))
+    (when (string-prefix-p my/junk-files-dir dirname)
+      (message "Updating Deft cache...")
+      (deft-cache-update-file file)
+      (deft-refresh-filter)
+      (message "Updating Deft cache...done"))))
+
+(when (require 'deft nil t)
+  (global-set-key [f8] 'deft)
+  (setq deft-extensions '("md" "org" "txt")
+        deft-directory my/junk-files-dir
+        deft-use-filename-as-title nil
+        deft-recursive t
+        deft-recursive-ignore-dir-regexp (concat "\\(?:\\.\\|\\.\\.\\|2007\\|2008\\|2009\\|2010\\)$" )
+        deft-markdown-mode-title-level 1)
+  (add-hook 'after-save-hook 'my/update-deft-cache)
+  (add-hook 'deft-mode-hook
+            (lambda ()
+              (linum-mode -1))))
 
 ;; org-mode
 (global-set-key (kbd "C-c c") 'org-capture)
 (custom-set-variables
  '(org-startup-truncated nil)
+ '(org-completion-use-helm t)
  '(org-directory my/junk-files-dir)
  '(org-agenda-files (list my/junk-files-dir))
  '(org-agenda-file-regexp "\\`[^.].*\\.org\\'")
@@ -15,16 +46,40 @@
  '(org-use-speed-commands t)
  '(org-use-fast-todo-selection t)
  '(org-src-fontify-natively t)
+ '(org-deadline-warning-days 5)
+ '(org-agenda-span 'fortnight)
+ ;; don't show tasks as scheduled if they are already shown as a deadline
+ '(org-agenda-skip-scheduled-if-deadline-is-shown t)
+ ;; don't give a warning color to tasks with impending deadlines if they are scheduled to be done
+ '(org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled)
+ ;; don't show tasks that are scheduled or have deadlines in the normal todo list
+ '(org-agenda-todo-ignore-deadlines 'all)
+ '(org-agenda-todo-ignore-scheduled 'all)
+ '(org-agenda-sorting-strategy
+   '((agenda deadline-up priority-down)
+     (todo priority-down category-keep)
+     (tags priority-down category-keep)
+     (search category-keep)))
  '(org-capture-templates
-   '(("p" "Project Task" entry (file (expand-file-name (concat my/junk-files-dir "/project.org")))
-      "* TODO [] %? %t\n    %a\n")
-     ("m" "memo" entry (file+datetree (expand-file-name (concat my/junk-files-dir "/memo.org")))
-      "* %? %T\n  %a\n")))
+   '(("t" "todo" entry (file (expand-file-name (concat my/junk-files-dir "/task.org")))
+      "* TODO %?[]\n  SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n  %a\n")
+     ;; https://github.com/takaishi/.emacs.d/blob/master/conf.d/30_org-mode.org
+;;      ("b" "bug" entry (file+headline (expand-file-name (concat my/junk-files-dir "/task.org"))
+;;                                      (let ((milestone (plist-get (plist-get org-store-link-plist :query) :milestone)))
+;;                                        (message (plist-get org-store-link-plist :query))
+;;                                        (if (string= milestone "") "backlog" "sprint")))
+;;       "* TODO %:description
+;; :PROPERTIES:
+;; :ID: %(plist-get (plist-get org-store-link-plist :query) :ticket-id)
+;; :END:"
+;;       :imeediate-finish t)
+     ("m" "memo" plain (file (my/new-junk-file-path))
+      "# %?\n%a\n")))
  '(org-todo-keywords
    '((sequence "TODO(t)" "DOING(d)" "WAITING(w)" "|" "DONE(x)" "CANCEL(c)")))
  '(org-todo-keyword-faces
    '(("TODO" . org-warning)
-     ("DOING" . (:forground "orange" :underline t :weight bold))
+     ("DOING" . (:foreground "orange" :underline t :weight bold))
      ("WAITING" . "firebrick1")
      ("DONE" . "green")
      ("CANCEL" . "SteelBlue"))))

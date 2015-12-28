@@ -11,6 +11,13 @@
 (set-face-attribute 'linum nil :height 0.8)
 (setq linum-format "%4d ")
 
+(setq beacon-push-mark 35
+      beacon-blink-when-point-moves-vertically 10
+      beacon-blink-when-point-moves-horizontally 40
+      beacon-blink-duration 0.2
+      beacon-blink-delay 0.2
+      beacon-color "#5fafd7")
+
 ;; more useful frame title, that show either a file or a
 ;; buffer name (if the buffer isn't visiting a file)
 (setq frame-title-format
