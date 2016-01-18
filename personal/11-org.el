@@ -1,11 +1,13 @@
 ;; open-junk-file
 (defvar my/junk-files-dir (concat (file-name-as-directory (or (getenv "DROPBOX") "~/Dropbox")) "Logs"))
-(when (require 'open-junk-file nil t)
-  (global-set-key (kbd "C-x j") 'open-junk-file)
-  (setq open-junk-file-format (concat my/junk-files-dir "%Y/%Y-%m-%d-%H%M%S.md")))
+(defvar my/open-junk-file-format (concat my/junk-files-dir "/%Y/%Y-%m-%d-%H%M%S.md"))
 
-(defun my/new-junk-file-path (&optional ext)
-  (let* ((file (format-time-string open-junk-file-format (current-time)))
+(when (require 'open-junk-file nil t)
+  (setq open-junk-file-format my/open-junk-file-format)
+  (global-set-key (kbd "C-x j") 'open-junk-file))
+
+(defun my/new-junk-file-path ()
+  (let* ((file (format-time-string my/open-junk-file-format (current-time)))
          (dir (file-name-directory file)))
     (make-directory dir t)
     file))
