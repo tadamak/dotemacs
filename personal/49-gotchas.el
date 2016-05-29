@@ -10,6 +10,9 @@
       flycheck-mode -1
       )
 
+;; apib-mode
+(autoload 'apib-mode "apib-mode" nil t)
+
 ;; dired
 (with-eval-after-load 'dired
   (put 'dired-find-alternate-file 'disabled nil)
