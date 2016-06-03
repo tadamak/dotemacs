@@ -12,30 +12,6 @@
     (make-directory dir t)
     file))
 
-;; deft
-(defun my/update-deft-cache ()
-  (interactive)
-  (let* ((file (buffer-file-name))
-         (dirname (file-name-directory file)))
-    (when (string-prefix-p my/junk-files-dir dirname)
-      (message "Updating Deft cache...")
-      (deft-cache-update-file file)
-      (deft-refresh-filter)
-      (message "Updating Deft cache...done"))))
-
-(when (require 'deft nil t)
-  (global-set-key [f8] 'deft)
-  (setq deft-extensions '("md" "org" "txt")
-        deft-directory my/junk-files-dir
-        deft-use-filename-as-title nil
-        deft-recursive t
-        deft-recursive-ignore-dir-regexp (concat "\\(?:\\.\\|\\.\\.\\|2007\\|2008\\|2009\\|2010\\)$" )
-        deft-markdown-mode-title-level 1)
-  (add-hook 'after-save-hook 'my/update-deft-cache)
-  (add-hook 'deft-mode-hook
-            (lambda ()
-              (linum-mode -1))))
-
 ;; org-mode
 (global-set-key (kbd "C-c c") 'org-capture)
 (custom-set-variables
