@@ -10,7 +10,9 @@
  go-direx
  helm-ag
  helm-ls-git
+ ido-vertical-mode
  markdown-mode
+ neotree
  open-junk-file
  popwin
  projectile-rails

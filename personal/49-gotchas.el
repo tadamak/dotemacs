@@ -113,6 +113,45 @@
   (push '(flycheck-error-list-mode) popwin:special-display-config)
   )
 
+;; neotree
+(when (require 'neotree nil t)
+  (global-set-key [f8] 'neotree-toggle)
+  (setq neo-smart-open t)
+  (setq projectile-switch-project-action 'neotree-projectile-action)
+  (when neo-persist-show
+    (add-hook 'popwin:before-popup-hook
+              (lambda () (setq neo-persist-show nil)))
+    (add-hook 'popwin:after-popup-hook
+              (lambda () (setq neo-persist-show t))))
+  )
+
+;; ido-vertical-mode
+(when (require 'ido-vertical-mode nil t)
+  (ido-vertical-mode t)
+  (add-hook 'ido-setup-hook
+            (lambda ()
+              ;; overwrite the key bindings for ido vertical mode only
+              (define-key ido-completion-map (kbd "C-<return>") 'ido-select-text)
+              ;; use M-RET in terminal
+              (define-key ido-completion-map "\M-\r" 'ido-select-text)
+              (define-key ido-completion-map (kbd "C-h") 'ido-delete-backward-updir)
+              (define-key ido-completion-map (kbd "C-l") 'ido-exit-minibuffer)
+              (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
+              (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
+              (define-key ido-completion-map (kbd "M-h") 'ido-prev-match-dir)
+              (define-key ido-completion-map (kbd "M-l") 'ido-next-match-dir)
+              (define-key ido-completion-map (kbd "M-n") 'next-history-element)
+              (define-key ido-completion-map (kbd "M-p") 'previous-history-element)
+              ;; more natural navigation keys: up, down to change current item
+              ;; left to go up dir
+              ;; right to open the selected item
+              (define-key ido-completion-map (kbd "<up>") 'ido-prev-match)
+              (define-key ido-completion-map (kbd "<down>") 'ido-next-match)
+              (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
+              (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)
+              ))
+  )
+  )
 ;; direx
 (when (require 'direx nil t)
   ;; :dedicatedにtを指定することで、direxウィンドウ内でのバッファの切り替えが
