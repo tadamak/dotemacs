@@ -151,7 +151,7 @@
               (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)
               ))
   )
-  )
+
 ;; direx
 (when (require 'direx nil t)
   ;; :dedicatedにtを指定することで、direxウィンドウ内でのバッファの切り替えが
