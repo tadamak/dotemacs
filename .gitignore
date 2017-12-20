@@ -24,3 +24,6 @@ ac-comphist.dat
 ac-dict
 tramp
 /var/pcache
+.emacs.desktop
+.emacs.desktop.lock
+network-security.data
