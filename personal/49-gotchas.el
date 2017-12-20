@@ -117,6 +117,11 @@
 (when (require 'neotree nil t)
   (global-set-key [f8] 'neotree-toggle)
   (setq neo-smart-open t)
+  (setq neo-show-hidden-files t)
+  (setq neo-create-file-auto-open t)
+  (setq neo-persist-show t)
+  (setq neo-keymap-style 'concise)
+  (setq neo-vc-integration '(face char))
   (setq projectile-switch-project-action 'neotree-projectile-action)
   (when neo-persist-show
     (add-hook 'popwin:before-popup-hook
@@ -153,16 +158,16 @@
   )
 
 ;; direx
-(when (require 'direx nil t)
-  ;; :dedicatedにtを指定することで、direxウィンドウ内でのバッファの切り替えが
-  ;; ポップアップ前のウィンドウに移譲される
-  (push '(direx:direx-mode :position left :width 50 :dedicated t)
-        popwin:special-display-config)
-  (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory-other-window)
-  (setq direx:leaf-icon "  "
-        direx:open-icon "▾ "
-        direx:closed-icon "▸ ")
-  )
+;; (when (require 'direx nil t)
+;;   ;; :dedicatedにtを指定することで、direxウィンドウ内でのバッファの切り替えが
+;;   ;; ポップアップ前のウィンドウに移譲される
+;;   (push '(direx:direx-mode :position left :width 50 :dedicated t)
+;;         popwin:special-display-config)
+;;   (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory-other-window)
+;;   (setq direx:leaf-icon "  "
+;;         direx:open-icon "▾ "
+;;         direx:closed-icon "▸ ")
+;;   )
 
 ;; project-explorer
 (when (require 'project-explorer nil t)

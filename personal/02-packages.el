@@ -9,6 +9,7 @@
  go-autocomplete
  go-direx
  helm-ag
+ helm-gtags
  helm-ls-git
  ido-vertical-mode
  markdown-mode

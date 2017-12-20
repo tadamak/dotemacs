@@ -2,7 +2,7 @@
 (menu-bar-mode -1)
 
 ;; Ditch them scrollbars
-(scroll-bar-mode -1)
+;(scroll-bar-mode -1)
 
 ;; Disable hilight-current-line
 (global-hl-line-mode -1)
